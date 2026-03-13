@@ -59,8 +59,9 @@
     flex: 1; height: 38px; border: 1.5px solid var(--border); border-radius: 9px;
     background: var(--surface); font-family: 'DM Sans', sans-serif;
     font-size: 13px; font-weight: 600; color: var(--text-muted);
-    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 5px;
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px;
   }
+  .lang-tab img { height: 14px; border-radius: 2px; }
   .lang-tab:hover { border-color: var(--green); color: var(--green-dark); }
   .lang-tab.active { background: var(--green); border-color: var(--green); color: #fff; box-shadow: 0 3px 12px rgba(85,189,121,0.3); }
 
@@ -82,7 +83,7 @@
   .field input.error ~ .field-error { display: block; }
 
   .phone-row { display: flex; gap: 8px; }
-  .phone-prefix { width: 120px !important; flex-shrink: 0; }
+  .phone-prefix { width: 100px !important; flex-shrink: 0; }
   .phone-number { flex: 1; width: auto !important; }
 
   .preview-panel { position: sticky; top: 84px; }
@@ -146,7 +147,6 @@
 
 <div class="layout">
 
-  <!-- LEFT: Form -->
   <div class="panel">
     <div class="panel-header">
       <div class="dot"></div>
@@ -156,10 +156,18 @@
     <div class="panel-body">
 
       <div class="lang-tabs">
-        <button class="lang-tab active" data-lang="pl" onclick="setLang('pl')"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Flag_of_Poland_%28normative%29.svg"> PL</button>
-        <button class="lang-tab" data-lang="en" onclick="setLang('en')"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg"> EN</button>
-        <button class="lang-tab" data-lang="ua" onclick="setLang('ua')"><img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"> UA</button>
-        <button class="lang-tab" data-lang="ru" onclick="setLang('ru')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg"> RU</button>
+        <button class="lang-tab active" data-lang="pl" onclick="setLang('pl')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Flag_of_Poland_%28normative%29.svg"> PL
+        </button>
+        <button class="lang-tab" data-lang="en" onclick="setLang('en')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg"> EN
+        </button>
+        <button class="lang-tab" data-lang="ua" onclick="setLang('ua')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg"> UA
+        </button>
+        <button class="lang-tab" data-lang="ru" onclick="setLang('ru')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg"> RU
+        </button>
       </div>
 
       <div class="field">
@@ -171,6 +179,30 @@
         <input type="text" id="title" placeholder="np. Specjalista ds. sprzedaży" oninput="updatePreview()">
       </div>
       <div class="field">
+        <label>Oddział / Adres</label>
+        <select id="address" onchange="updatePreview()">
+          <option value="Aleja Pokoju 62/2, 31-564 Kraków">Administracja</option>
+          <option value="Aleja Pokoju 62/8, 31-564 Kraków">BPO</option>
+          <option value="Powstańców Warszawskich 31, 41-902 Bytom">Bytom</option>
+          <option value="Aleja Pokoju 62/2, 31-564 Kraków">HR</option>
+          <option value="Aleja Pokoju 62/2, 31-564 Kraków">IT/RPA</option>
+          <option value="Zabrska 16/2, 40-083 Katowice">Katowice</option>
+          <option value="Aleja Pokoju 62/8, 31-564 Kraków">Kraków I</option>
+          <option value="Aleja Pokoju 62/6, 31-564 Kraków">Kraków II</option>
+          <option value="Aleja Pokoju 62/6, 31-564 Kraków">Kraków Podgórze</option>
+          <option value="Aleja Pokoju 62/8, 31-564 Kraków">Marketing</option>
+          <option value="Aleja Tadeusza Rejtana 67, 35-326 Rzeszów">Rzeszów</option>
+          <option value="Aleja Pokoju 62/6, 31-564 Kraków">Sprzedaż</option>
+          <option value="Jana Pawła Woronicza 31/250, 02-640 Warszawa">Warszawa</option>
+          <option value="Jana Pawła Woronicza 31/250, 02-640 Warszawa">Warszawa Bielany</option>
+          <option value="Aleja Pokoju 62/8, 31-564 Kraków">Wirtualny I</option>
+          <option value="Aleja Pokoju 62/6, 31-564 Kraków">Wirtualny II</option>
+          <option value="Rybacka 7/404, 53-656 Wrocław">Wrocław</option>
+          <option value="Aleja Pokoju 62/8, 31-564 Kraków">Zarząd</option>
+          <option value="Zielona 6, lokal B04, 90-414 Łódź">Łódź</option>
+        </select>
+      </div>
+      <div class="field">
         <label>Adres e-mail</label>
         <input type="email" id="email" placeholder="np. jan.kowalski@meritoros.pl"
                oninput="onEmailInput()" onblur="validateEmail()">
@@ -180,7 +212,7 @@
         <label>Telefon komórkowy <span style="font-weight:400;text-transform:none;opacity:0.65;font-size:10px;">(opcjonalnie)</span></label>
         <div class="phone-row">
           <select class="phone-prefix" id="phone-prefix" onchange="updatePreview()">
-            <option value="+48" selected>+48</option>
+            <option value="+48" selected>PL +48</option>
           </select>
           <input type="tel" class="phone-number" id="phone" placeholder="600 000 000" oninput="updatePreview()">
         </div>
@@ -189,12 +221,11 @@
     </div>
   </div>
 
-  <!-- RIGHT: Preview + Copy -->
   <div class="panel preview-panel">
     <div class="panel-header">
       <div class="dot"></div>
       <h2>Podgląd</h2>
-      <p id="lang-label">🇵🇱 Wersja polska</p>
+      <p id="lang-label">Wersja polska</p>
     </div>
     <div class="panel-body">
       <div class="email-chrome">
@@ -224,28 +255,28 @@
 <script>
   const LANGS = {
     pl: {
-      label: '🇵🇱 Wersja polska',
+      label: 'Wersja polska',
       greeting: 'Pozdrawiam',
       disclaimer: 'Uwaga: Niniejsza wiadomość może zawierać informacje poufne. Jeśli nie jesteś jej zamierzonym odbiorcą, prosimy o jej usunięcie.',
-      disclaimerHtml: 'Uwaga: Niniejsza wiadomo&#347;&#263; mo&#380;e zawiera&#263; informacje poufne. Je&#347;li nie jeste&#347; jej zamierzonym odbiorc&#261;, prosimy o jej usuni&#281;cie.',
+      disclaimerHtml: 'Uwaga: Niniejsza wiadomość może zawierać informacje poufne. Jeśli nie jesteś jej zamierzonym odbiorcą, prosimy o jej usunięcie.',
     },
     en: {
-      label: '🇬🇧 English version',
+      label: 'English version',
       greeting: 'Best regards',
       disclaimer: 'Notice: This message may contain confidential information. If you are not the intended recipient, please delete it.',
       disclaimerHtml: 'Notice: This message may contain confidential information. If you are not the intended recipient, please delete it.',
     },
     ua: {
-      label: '🇺🇦 Версія українською',
+      label: 'Версія українською',
       greeting: 'З повагою',
       disclaimer: 'Увага: Це повідомлення може містити конфіденційну інформацію. Якщо ви не є його адресатом, будь ласка, видаліть його.',
-      disclaimerHtml: '&#1059;&#1074;&#1072;&#1075;&#1072;: &#1062;&#1077; &#1087;&#1086;&#1074;&#1110;&#1076;&#1086;&#1084;&#1083;&#1077;&#1085;&#1085;&#1103; &#1084;&#1086;&#1078;&#1077; &#1084;&#1110;&#1089;&#1090;&#1080;&#1090;&#1080; &#1082;&#1086;&#1085;&#1092;&#1110;&#1076;&#1077;&#1085;&#1094;&#1110;&#1081;&#1085;&#1091; &#1110;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1110;&#1102;. &#1071;&#1082;&#1097;&#1086; &#1074;&#1080; &#1085;&#1077; &#1108; &#1081;&#1086;&#1075;&#1086; &#1072;&#1076;&#1088;&#1077;&#1089;&#1072;&#1090;&#1086;&#1084;, &#1073;&#1091;&#1076;&#1100; &#1083;&#1072;&#1089;&#1082;&#1072;, &#1074;&#1080;&#1076;&#1072;&#1083;&#1110;&#1090;&#1100; &#1081;&#1086;&#1075;&#1086;.',
+      disclaimerHtml: 'Увага: Це повідомлення може містити конфіденційну інформацію. Якщо ви не є його адресатом, будь ласка, видаліть його.',
     },
     ru: {
-      label: '🇷🇺 Русская версия',
+      label: 'Русская версия',
       greeting: 'С уважением',
       disclaimer: 'Внимание: Это сообщение может содержать конфиденциальную информацию. Если вы не являетесь его адресатом, просьба удалить его.',
-      disclaimerHtml: '&#1042;&#1085;&#1080;&#1084;&#1072;&#1085;&#1080;&#1077;: &#1069;&#1090;&#1086; &#1089;&#1086;&#1086;&#1073;&#1097;&#1077;&#1085;&#1080;&#1077; &#1084;&#1086;&#1078;&#1077;&#1090; &#1089;&#1086;&#1076;&#1077;&#1088;&#1078;&#1072;&#1090;&#1100; &#1082;&#1086;&#1085;&#1092;&#1080;&#1076;&#1077;&#1085;&#1094;&#1080;&#1072;&#1083;&#1100;&#1085;&#1091;&#1102; &#1080;&#1085;&#1092;&#1086;&#1088;&#1084;&#1072;&#1094;&#1080;&#1102;. &#1045;&#1089;&#1083;&#1080; &#1074;&#1099; &#1085;&#1077; &#1103;&#1074;&#1083;&#1103;&#1077;&#1090;&#1077;&#1089;&#1100; &#1077;&#1075;&#1086; &#1072;&#1076;&#1088;&#1077;&#1089;&#1072;&#1090;&#1086;&#1084;, &#1087;&#1088;&#1086;&#1089;&#1100;&#1073;&#1072; &#1091;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1077;&#1075;&#1086;.',
+      disclaimerHtml: 'Внимание: Это сообщение может содержать конфиденциальную информацию. Если вы не являетесь его адресатом, просьба удалить его.',
     }
   };
 
@@ -260,17 +291,18 @@
   }
 
   function escHtml(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return str.replace(/&/g,'&').replace(/</g,'<').replace(/>/g,'>').replace(/"/g,'"');
   }
 
   function getValues() {
     const phoneNum = document.getElementById('phone').value.trim();
     const prefix   = document.getElementById('phone-prefix').value;
     return {
-      name:  document.getElementById('name').value.trim()  || 'Imię Nazwisko',
-      title: document.getElementById('title').value.trim() || 'Stanowisko',
-      email: document.getElementById('email').value.trim() || 'email@meritoros.pl',
-      phone: phoneNum ? prefix + ' ' + phoneNum : '',
+      name:    document.getElementById('name').value.trim()  || 'Imię Nazwisko',
+      title:   document.getElementById('title').value.trim() || 'Stanowisko',
+      email:   document.getElementById('email').value.trim() || 'email@meritoros.pl',
+      phone:   phoneNum ? prefix + ' ' + phoneNum : '',
+      address: document.getElementById('address').value
     };
   }
 
@@ -286,7 +318,6 @@
   }
 
   function onEmailInput() {
-    // Only clear error while typing — show error on blur
     const input = document.getElementById('email');
     if (input.classList.contains('error')) validateEmail();
     updatePreview();
@@ -294,14 +325,16 @@
 
   function phoneRowSig(phone) {
     if (!phone) return '';
+    let telLink = phone.replace(/\s+/g, '');
     return `<tr>
       <td style="text-align:left;width:30px;height:22px;"><span style="font-family:Arial;font-size:12pt;color:rgb(36,36,36);"><img src="https://meritoros.pl/wp-content/uploads/2025/04/phone-icon.png" alt="mobilePhone" width="13" style="width:13px;margin:0px;"></span></td>
-      <td style="text-align:left;line-height:22px;color:black;height:22px;"><div style="text-align:left;line-height:22px;font-family:Arial;font-size:14px;color:black;">${escHtml(phone)}</div></td>
+      <td style="text-align:left;line-height:22px;color:black;height:22px;"><div style="text-align:left;line-height:22px;font-family:Arial;font-size:14px;color:black;"><a href="tel:${telLink}" style="color:black;text-decoration:none;margin:0px;">${escHtml(phone)}</a></div></td>
     </tr>`;
   }
 
   function buildSignatureHTML(v) {
     const L = LANGS[currentLang];
+    
     const sig = `
 <p style="text-align:left;background-color:rgb(255,255,255);margin-top:0px;margin-bottom:0px;"><span style="font-family:Arial;font-size:15px;color:rgb(36,36,36);">${L.greeting}</span></p>
 <table cellspacing="0" cellpadding="0" style="text-align:left;background-color:rgb(255,255,255);color:rgb(36,36,36);box-sizing:border-box;border-collapse:collapse;border-spacing:0px;">
@@ -330,7 +363,7 @@
         </tr>
         <tr>
           <td style="text-align:left;width:30px;height:22px;"><span style="font-family:Arial;font-size:12pt;color:rgb(36,36,36);"><img src="https://meritoros.pl/wp-content/uploads/2025/04/address-icon.png" alt="address" width="13" style="width:13px;margin:0px;"></span></td>
-          <td style="text-align:left;line-height:22px;color:black;height:22px;"><div style="text-align:left;line-height:22px;font-family:Arial;font-size:14px;color:black;">Aleja Pokoju 62/8, 31-564 Krak&oacute;w</div></td>
+          <td style="text-align:left;line-height:22px;color:black;height:22px;"><div style="text-align:left;line-height:22px;font-family:Arial;font-size:14px;color:black;">${escHtml(v.address)}</div></td>
         </tr>
       </tbody></table>
     </td>
@@ -366,34 +399,42 @@
 
   function buildPreviewHTML(v) {
     const L = LANGS[currentLang];
+    let phoneHtml = '';
+    
+    if (v.phone) {
+      let telLink = v.phone.replace(/\s+/g, '');
+      phoneHtml = `<tr style="height:22px">
+        <td style="width:22px;vertical-align:middle"><img src="https://meritoros.pl/wp-content/uploads/2025/04/phone-icon.png" width="13"></td>
+        <td style="font-size:13px;color:#111;font-family:Arial"><a href="tel:${telLink}" style="color:#111;text-decoration:none">${escHtml(v.phone)}</a></td>
+      </tr>`;
+    }
+
     return `
       <table cellpadding="0" cellspacing="0" style="font-family:Arial;font-size:14px">
         <tr>
           <td style="vertical-align:middle">
             <div style="font-size:16px;font-weight:700;color:#111;margin-bottom:2px;font-family:Arial">${escHtml(v.name)}</div>
             <div style="font-size:13px;color:#444;margin-bottom:1px;font-family:Arial">${escHtml(v.title)}</div>
-            <div style="font-size:13px;font-weight:600;color:#222;font-family:Arial">MERITOROS SA</div>
+            <!--
+            <div style="font-size:13px;font-weight:600;color:#222;font-family:Arial">MERITOROS SA</div>-->
           </td>
           <td style="width:22px"></td>
-          <td style="border-left:4px solid #44be78;width:1px">&nbsp;</td>
+          <td style="border-left:4px solid #44be78;width:1px"> </td>
           <td style="width:14px"></td>
           <td style="vertical-align:middle">
             <table cellpadding="0" cellspacing="0">
               <tr style="height:22px">
                 <td style="width:22px;vertical-align:middle"><img src="https://meritoros.pl/wp-content/uploads/2025/04/email-icon.png" width="13"></td>
-                <td style="font-size:13px;color:#111;font-family:Arial">${escHtml(v.email)}</td>
+                <td style="font-size:13px;color:#111;font-family:Arial"><a href="mailto:${escHtml(v.email)}" style="color:#111;text-decoration:none">${escHtml(v.email)}</a></td>
               </tr>
-              ${v.phone ? `<tr style="height:22px">
-                <td style="width:22px;vertical-align:middle"><img src="https://meritoros.pl/wp-content/uploads/2025/04/phone-icon.png" width="13"></td>
-                <td style="font-size:13px;color:#111;font-family:Arial">${escHtml(v.phone)}</td>
-              </tr>` : ''}
+              ${phoneHtml}
               <tr style="height:22px">
                 <td style="width:22px;vertical-align:middle"><img src="https://meritoros.pl/wp-content/uploads/2025/04/link-icon.png" width="13"></td>
-                <td style="font-size:13px;color:#111;font-family:Arial">meritoros.pl</td>
+                <td style="font-size:13px;color:#111;font-family:Arial"><a href="https://meritoros.pl/" style="color:#111;text-decoration:none">meritoros.pl</a></td>
               </tr>
               <tr style="height:22px">
                 <td style="width:22px;vertical-align:middle"><img src="https://meritoros.pl/wp-content/uploads/2025/04/address-icon.png" width="13"></td>
-                <td style="font-size:13px;color:#111;font-family:Arial">Aleja Pokoju 62/8, 31-564 Kraków</td>
+                <td style="font-size:13px;color:#111;font-family:Arial">${escHtml(v.address)}</td>
               </tr>
             </table>
           </td>
@@ -405,9 +446,9 @@
               <tr>
                 <td><img src="https://meritoros.pl/wp-content/uploads/2025/04/logo.png" width="105" style="display:block"></td>
                 <td style="text-align:right;vertical-align:middle">
-                  <img src="https://meritoros.pl/wp-content/uploads/2025/04/facebook-icon-dark.png" width="20" style="display:inline-block;margin-right:4px">
-                  <img src="https://meritoros.pl/wp-content/uploads/2025/04/linkedin-icon-dark.png" width="20" style="display:inline-block;margin-right:4px">
-                  <img src="https://meritoros.pl/wp-content/uploads/2025/04/instagram-icon-dark.png" width="20" style="display:inline-block">
+                  <a href="https://www.facebook.com/Meritoros" style="text-decoration:none"><img src="https://meritoros.pl/wp-content/uploads/2025/04/facebook-icon-dark.png" width="20" style="display:inline-block;margin-right:4px"></a>
+                  <a href="https://www.linkedin.com/company/meritoros/" style="text-decoration:none"><img src="https://meritoros.pl/wp-content/uploads/2025/04/linkedin-icon-dark.png" width="20" style="display:inline-block;margin-right:4px"></a>
+                  <a href="https://www.instagram.com/meritoros/" style="text-decoration:none"><img src="https://meritoros.pl/wp-content/uploads/2025/04/instagram-icon-dark.png" width="20" style="display:inline-block"></a>
                 </td>
               </tr>
             </table>
